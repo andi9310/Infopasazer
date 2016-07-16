@@ -1,0 +1,18 @@
+﻿<Page
+    x:Class="InfopasazerApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    x:Name ="thisPage"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InfopasazerApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DataContext="this">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding ElementName=thisPage}">
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="326,244,0,0" VerticalAlignment="Top" Click="button_Click"/>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="100" Margin="766,276,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="566,192,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="716,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="102" Width="284"/>
+
+    </Grid>
+</Page>

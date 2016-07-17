@@ -1,18 +1,23 @@
 ﻿<Page
     x:Class="InfopasazerApp.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    x:Name ="thisPage"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:InfopasazerApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DataContext="this">
+    mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding ElementName=thisPage}">
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="326,244,0,0" VerticalAlignment="Top" Click="button_Click"/>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="100" Margin="766,276,0,0" VerticalAlignment="Top" Width="100"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="566,192,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="716,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="102" Width="284"/>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel>
+            <TextBlock x:Name="currentCityTextBlock" HorizontalAlignment="Center" TextAlignment="Center" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top" Height="100" Width="200"/>
+            <Button x:Name="refreshCity" Content="Odśwież lokalizację" HorizontalAlignment="Center" VerticalAlignment="Top" Click="refreshCity_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="showStations" Content="Pokaż stacje w mieście" HorizontalAlignment="Left" VerticalAlignment="Top" Click="showStations_Click"/>
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" TextWrapping="Wrap" Width ="200"  Text="Warszawa" VerticalAlignment="Top"/>
+            </StackPanel>
+            <ListView x:Name="stationsListView" HorizontalAlignment="Center" Height="500" VerticalAlignment="Top" Width="300" IsItemClickEnabled="True" ItemClick="stationsListView_OnItemClick"/>
+        </StackPanel>
+        
 
     </Grid>
 </Page>

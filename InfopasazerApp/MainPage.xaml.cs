@@ -1,43 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Geolocation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Services.Maps;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+using InfopasazerApp.InfopasazerServiceReference;
 
 namespace InfopasazerApp
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage
     {
         private GeolocationAccessStatus _accessStatus = GeolocationAccessStatus.Denied;
-        public string City { get; set; } = "";
+        public string City { get; set; } = string.Empty;
+        private List<Station> _stations; 
         public MainPage()
         {
             InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Required;
             RequestAccess();
             RefreshCity();
-
         }
 
         private async void RequestAccess()
         {
             _accessStatus = await Geolocator.RequestAccessAsync();
-
         }
 
         private async void RefreshCity()
@@ -61,21 +49,30 @@ namespace InfopasazerApp
                 return;
             }
             City = result.Locations[0].Address.Town;
-            textBlock.Text = City;
-            var x = new InfopasazerServiceReference.StationsClient();
+            currentCityTextBlock.Text = City;
+            var x = new StationsClient();
 
-            var f = await x.GetAsync(City);
-            var s = f.Aggregate("", (current, ss) => current + ss.Name);
-            listView.ItemsSource = f.Select(elem => elem.Name);
+            _stations = (await x.GetAsync(City)).ToList();
+            
+            stationsListView.ItemsSource = _stations.Select(elem => elem.Name);
 
         }
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private async void showStations_Click(object sender, RoutedEventArgs e)
         {
-            var x = new InfopasazerServiceReference.StationsClient();
+            var x = new StationsClient();
+            _stations = (await x.GetAsync(textBox.Text)).ToList();
+            stationsListView.ItemsSource = _stations.Select(elem => elem.Name);
+        }
 
-            var f = await x.GetAsync(textBox.Text);
-            var s = f.Aggregate("", (current, ss) => current + ss.Name);
-            listView.ItemsSource = f.Select(elem => elem.Name);
+        private void refreshCity_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshCity();
+        }
+
+        private void stationsListView_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedStation = _stations.Find(x => (string) e.ClickedItem == x.Name);
+            Frame.Navigate(typeof(StationPage), clickedStation);
         }
     }
 }

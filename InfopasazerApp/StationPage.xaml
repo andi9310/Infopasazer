@@ -7,9 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <StackPanel>
-            <TextBlock x:Name="stationNameTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="TextBox" FontSize="40"/>
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="Assets/Background.jpg" Stretch="UniformToFill"></ImageBrush>
+        </Grid.Background>
+        <StackPanel>
+            <TextBlock x:Name="stationNameTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Brak stacji" FontSize="40"/>
         </StackPanel>
     </Grid>
 </Page>

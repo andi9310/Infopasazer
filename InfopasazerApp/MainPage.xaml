@@ -8,9 +8,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Assets/Background.jpg" Stretch="UniformToFill"></ImageBrush>
-        </Grid.Background>
         <StackPanel>
             <TextBlock x:Name="currentCityTextBlock" HorizontalAlignment="Center" TextAlignment="Center" FontSize="40" TextWrapping="Wrap" VerticalAlignment="Top" Height="100" Width="200"/>
             <Button x:Name="refreshCity" Content="Odśwież lokalizację" HorizontalAlignment="Center" VerticalAlignment="Top" Click="refreshCity_Click"/>

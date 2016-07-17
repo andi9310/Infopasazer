@@ -5,6 +5,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace InfopasazerApp
@@ -44,8 +46,15 @@ namespace InfopasazerApp
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
+                rootFrame = new Frame
+                {
+                    Background = new ImageBrush
+                    {
+                        Stretch = Stretch.UniformToFill,
+                        ImageSource =
+                            new BitmapImage {UriSource = new Uri("ms-appx:///Assets/Background.jpg")}
+                    }
+                };
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 rootFrame.Navigated += OnNavigated;
 

@@ -6,7 +6,7 @@ using Windows.Services.Maps;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using InfopasazerApp.InfopasazerServiceReference;
+using InfopasazerApp.StationsServiceReference;
 
 namespace InfopasazerApp
 {

@@ -10,6 +10,41 @@
     <Grid>
         <StackPanel>
             <TextBlock x:Name="stationNameTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Brak stacji" FontSize="40"/>
+            <ListView Name="arrivals" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ListView.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.50"/>
+                </ListView.Background>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Foreground" Value="White"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Company}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Grid.Column="2" Text="{Binding Date}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Grid.Column="3" Text="{Binding Source}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Grid.Column="4" Text="{Binding Destination}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Grid.Column="5" Text="{Binding PlannedTime}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Grid.Column="6" Text="{Binding Delay}" TextWrapping="Wrap"></TextBlock>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </Grid>
 </Page>

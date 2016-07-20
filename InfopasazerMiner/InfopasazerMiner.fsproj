@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Station.fs" />
+    <Compile Include="Train.fs" />
+    <Compile Include="TrainGroup.fs" />
     <Compile Include="InfopasazerMiner.fs" />
     <Content Include="packages.config" />
   </ItemGroup>

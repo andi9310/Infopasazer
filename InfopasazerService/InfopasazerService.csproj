@@ -62,14 +62,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Stations.svc" />
+    <Content Include="Trains.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITrains.cs" />
     <Compile Include="Stations.svc.cs">
       <DependentUpon>Stations.svc</DependentUpon>
     </Compile>
     <Compile Include="IStations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trains.svc.cs">
+      <DependentUpon>Trains.svc</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

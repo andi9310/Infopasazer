@@ -122,6 +122,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppTrain.cs" />
     <Compile Include="BingApi.cs" />
     <Compile Include="JSONs.cs" />
     <Compile Include="MainPage.xaml.cs">

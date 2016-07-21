@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -15,6 +16,7 @@ namespace InfopasazerApp
     {
         private Station _station;
         private TrainGroup _trains;
+        private bool _showDepartures;
         public StationPage()
         {
             InitializeComponent();
@@ -24,13 +26,13 @@ namespace InfopasazerApp
         {
             var client = new TrainsClient();
             _trains = await client.GetAsync(_station.Id);
-            arrivals.ItemsSource = _trains.Arrivals;
+            trainsList.ItemsSource = _showDepartures ? _trains.Departures.Select(x => new AppTrain(x)) : _trains.Arrivals.Select(x => new AppTrain(x));
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter == null) return;
-            _station = (Station) e.Parameter;
+            _station = (Station)e.Parameter;
             stationNameTextBlock.Text = _station.Name;
             var url = await BingApi.GetImageUrl(_station.Name);
 
@@ -39,9 +41,25 @@ namespace InfopasazerApp
             Background = new ImageBrush
             {
                 Stretch = Stretch.UniformToFill,
-                ImageSource = new BitmapImage {UriSource = new Uri(url)}
+                ImageSource = new BitmapImage { UriSource = new Uri(url) }
             };
             await refreshTask;
+        }
+
+        private void Source_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var train = (((e.OriginalSource as TextBlock)?.Parent as Border)?.Parent as Grid)?.DataContext as AppTrain;
+            if (train == null)
+            {
+                return;
+            }
+        }
+
+        private async void Mode_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ((Button) e.OriginalSource).Content = _showDepartures ? "Przyjazdy" : "Odjazdy";
+            _showDepartures = !_showDepartures;
+            await RefreshTrains();
         }
     }
 }

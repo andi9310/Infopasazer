@@ -32,7 +32,7 @@ type InfopasazerMiner() =
     static member private TrainFromRow (row:HtmlNode) =
         let fields = row.Descendants ["td"]
         {
-            Train.Name = fields |> (Seq.nth 0) |> fun (a: HtmlNode) -> a.InnerText(); 
+            Train.Name = fields |> (Seq.nth 0) |> fun (a: HtmlNode) -> a.InnerText().Replace(System.Environment.NewLine, ""); 
             Train.Company = fields |> (Seq.nth 1) |> fun (a: HtmlNode) -> a.InnerText(); 
             Train.Id = Int32.Parse((((fields |> Seq.nth 0).Descendants ["a"] |> Seq.nth 0).AttributeValue "href") |> fun (a: string) -> a.Replace("?p=train&id=", ""));
             Train.CompanyUrl = ((fields |> Seq.nth 1).Descendants ["a"] |> Seq.nth 0).AttributeValue "href";

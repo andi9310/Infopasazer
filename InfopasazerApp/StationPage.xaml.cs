@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -8,7 +10,6 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using InfopasazerApp.StationsServiceReference;
 using InfopasazerApp.TrainsServiceReference;
-
 
 namespace InfopasazerApp
 {
@@ -33,33 +34,74 @@ namespace InfopasazerApp
         {
             if (e.Parameter == null) return;
             _station = (Station)e.Parameter;
+            if (_station.Id == -1)
+            {
+                return;
+            }
             stationNameTextBlock.Text = _station.Name;
             var url = await BingApi.GetImageUrl(_station.Name);
 
             var refreshTask = RefreshTrains();
-
-            Background = new ImageBrush
+            if (url != null)
             {
-                Stretch = Stretch.UniformToFill,
-                ImageSource = new BitmapImage { UriSource = new Uri(url) }
-            };
+                Background = new ImageBrush
+                {
+                    Stretch = Stretch.UniformToFill,
+                    ImageSource = new BitmapImage {UriSource = new Uri(url)}
+                };
+            }
             await refreshTask;
         }
 
-        private void Source_OnTapped(object sender, TappedRoutedEventArgs e)
+        private async void Source_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             var train = (((e.OriginalSource as TextBlock)?.Parent as Border)?.Parent as Grid)?.DataContext as AppTrain;
             if (train == null)
             {
                 return;
             }
+            var client = new StationsClient();
+            var station = await client.GetStationForNameAsync(train.Source);
+            Frame.Navigate(typeof(StationPage), station);
         }
 
-        private async void Mode_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void Mode_Click(object sender, RoutedEventArgs e)
         {
             ((Button) e.OriginalSource).Content = _showDepartures ? "Przyjazdy" : "Odjazdy";
             _showDepartures = !_showDepartures;
             await RefreshTrains();
+        }
+
+        private async void Destination_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var train = (((e.OriginalSource as TextBlock)?.Parent as Border)?.Parent as Grid)?.DataContext as AppTrain;
+            if (train == null)
+            {
+                return;
+            }
+            var client = new StationsClient();
+            var station = await client.GetStationForNameAsync(train.Destination);
+            Frame.Navigate(typeof(StationPage), station);
+        }
+
+        private void Name_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var train = (((e.OriginalSource as TextBlock)?.Parent as Border)?.Parent as Grid)?.DataContext as AppTrain;
+            if (train == null)
+            {
+                return;
+            }
+            Frame.Navigate(typeof(TrainPage), train);
+        }
+
+        private async void Company_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var train = (((e.OriginalSource as TextBlock)?.Parent as Border)?.Parent as Grid)?.DataContext as AppTrain;
+            if (train == null)
+            {
+                return;
+            }
+            await Launcher.LaunchUriAsync(new Uri(train.CompanyUrl));
         }
     }
 }

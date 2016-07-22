@@ -10,5 +10,8 @@ namespace InfopasazerService
     {
         [OperationContract]
         List<Station> Get(string pattern);
+
+        [OperationContract]
+        Station GetStationForName(string name);
     }
 }

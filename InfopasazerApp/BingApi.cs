@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace InfopasazerApp
@@ -11,7 +8,7 @@ namespace InfopasazerApp
     class BingApi
     {
         private const string BaseUrl =
-            "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q={0}&count=1&offset=0&mkt=en-us&safeSearch=Moderate";
+            "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q={0} dworzec&count=1&offset=0&mkt=en-us&safeSearch=Moderate";
 
         public static async Task<string> GetImageUrl(string query)
         {
@@ -34,7 +31,7 @@ namespace InfopasazerApp
                     return jsonResponse?.Value[0].ContentUrl;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

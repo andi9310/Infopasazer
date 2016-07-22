@@ -22,11 +22,14 @@ type InfopasazerMiner() =
     static member private GetStationDocument id = 
         InfopasazerMiner.GetInfopasazerDocument("?p=station&id=" + id)
 
+    static member private GetTrainDocument id = 
+        InfopasazerMiner.GetInfopasazerDocument("?p=train&id=" + id)
+
     static member GetStations stationNamePattern =
         (InfopasazerMiner.GetStationsDocument stationNamePattern).Descendants ["td"]
             |> Seq.choose (fun x ->
                 x.TryGetAttribute "onclick"
-                |> Option.map (fun a -> { Station.Name = x.InnerText(); Station.Id = Int32.Parse(a.Value().Replace("window.location='?p=station&id=", "").Replace("'", ""))})
+                |> Option.map (fun a -> { Station.Name = x.InnerText().Trim(); Station.Id = Int32.Parse(a.Value().Replace("window.location='?p=station&id=", "").Replace("'", ""))})
             )
 
     static member private TrainFromRow (row:HtmlNode) =
@@ -44,10 +47,16 @@ type InfopasazerMiner() =
         }       
 
     static member private TrainsFromRows rows =
-        rows |> Seq.map(fun item -> InfopasazerMiner.TrainFromRow item)
+        try
+            rows |> Seq.map(fun item -> InfopasazerMiner.TrainFromRow item)
+        with
+        | ArumentNullException -> Seq.empty
     
     static member private GetTrainsRows mode tables =
-        (tables |> Seq.find(fun (item:HtmlNode) -> not (item.Descendants ["th"] |> Seq.where(fun i -> i.InnerText().Contains(mode)) |> Seq.isEmpty))).Descendants ["tr"] |> Seq.skip 1
+        try
+            (tables |> Seq.find(fun (item:HtmlNode) -> not (item.Descendants ["th"] |> Seq.where(fun i -> i.InnerText().Contains(mode)) |> Seq.isEmpty))).Descendants ["tr"] |> Seq.skip 1
+        with
+        | KeyNotFoundException -> Seq.empty
 
     static member GetTrainsForStation stationId =
         let tables = InfopasazerMiner.GetStationDocument(stationId.ToString()).Descendants ["table"]
@@ -57,3 +66,28 @@ type InfopasazerMiner() =
             TrainGroup.Arrivals = arrivals |> InfopasazerMiner.TrainsFromRows;
             TrainGroup.Departures = departures |> InfopasazerMiner.TrainsFromRows;
         } 
+
+    static member private TrainStationFromRow (row:HtmlNode) =
+        let fields = row.Descendants ["td"]
+        {
+            TrainStation.Name = fields |> (Seq.nth 3) |> fun (a: HtmlNode) -> a.InnerText().Trim()
+            TrainStation.PlanedArrival = fields |> (Seq.nth 4) |> fun (a: HtmlNode) -> a.InnerText()
+            TrainStation.ArrivalDelay = fields |> (Seq.nth 5) |> fun (a: HtmlNode) -> a.InnerText()
+            TrainStation.PlannedDeparture = fields |> (Seq.nth 6) |> fun (a: HtmlNode) -> a.InnerText()
+            TrainStation.DepartureDelay = fields |> (Seq.nth 7) |> fun (a: HtmlNode) -> a.InnerText()
+        }    
+
+    static member GetStationForName name =
+        try
+           (InfopasazerMiner.GetStationsDocument name).Descendants ["td"] 
+                |> Seq.choose (fun x ->
+                x.TryGetAttribute "onclick"
+                |> Option.map (fun a -> { Station.Name = x.InnerText().Trim(); Station.Id = Int32.Parse(a.Value().Replace("window.location='?p=station&id=", "").Replace("'", ""))})
+            ) |> Seq.find (fun a -> a.Name.Equals name)
+        with
+        | KeyNotFoundException -> {Station.Id = -1; Station.Name = null;}
+
+    static member GetTrainDetails trainId =
+        let rows = (InfopasazerMiner.GetTrainDocument(trainId.ToString())).Descendants ["tr"] |> Seq.skip 1
+        rows |> Seq.map(fun item -> InfopasazerMiner.TrainStationFromRow item)
+

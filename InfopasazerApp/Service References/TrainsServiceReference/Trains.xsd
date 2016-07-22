@@ -15,4 +15,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetTrain">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trainId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTrainResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/InfopasazerMiner" minOccurs="0" name="GetTrainResult" nillable="true" type="q2:ArrayOfTrainStation" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

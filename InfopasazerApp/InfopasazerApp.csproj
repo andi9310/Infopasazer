@@ -107,6 +107,9 @@
     <None Include="Service References\TrainsServiceReference\InfopasazerApp.TrainsServiceReference.TrainGroup.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\TrainsServiceReference\InfopasazerApp.TrainsServiceReference.TrainStation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\TrainsServiceReference\Trains.wsdl" />
     <None Include="Service References\TrainsServiceReference\Trains.xsd">
       <SubType>Designer</SubType>
@@ -141,6 +144,9 @@
     </Compile>
     <Compile Include="StationPage.xaml.cs">
       <DependentUpon>StationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TrainPage.xaml.cs">
+      <DependentUpon>TrainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +190,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

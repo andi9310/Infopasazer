@@ -27,4 +27,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Train" nillable="true" type="tns:Train" />
+  <xs:complexType name="ArrayOfTrainStation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TrainStation" nillable="true" type="tns:TrainStation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTrainStation" nillable="true" type="tns:ArrayOfTrainStation" />
+  <xs:complexType name="TrainStation">
+    <xs:sequence>
+      <xs:element name="ArrivalDelay_x0040_" nillable="true" type="xs:string" />
+      <xs:element name="DepartureDelay_x0040_" nillable="true" type="xs:string" />
+      <xs:element name="Name_x0040_" nillable="true" type="xs:string" />
+      <xs:element name="PlanedArrival_x0040_" nillable="true" type="xs:string" />
+      <xs:element name="PlannedDeparture_x0040_" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TrainStation" nillable="true" type="tns:TrainStation" />
 </xs:schema>

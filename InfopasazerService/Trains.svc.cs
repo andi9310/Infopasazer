@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using System.Collections.Generic;
 using InfopasazerMiner;
 
 namespace InfopasazerService
@@ -13,6 +8,10 @@ namespace InfopasazerService
         public TrainGroup Get(int stationId)
         {
             return InfopasazerMiner.InfopasazerMiner.GetTrainsForStation(stationId);
+        }
+        public IEnumerable<TrainStation> GetTrain(int trainId)
+        {
+            return InfopasazerMiner.InfopasazerMiner.GetTrainDetails(trainId);
         }
     }
 }

@@ -13,16 +13,35 @@
   <wsdl:message name="ITrains_Get_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetResponse" />
   </wsdl:message>
+  <wsdl:message name="ITrains_GetTrain_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrain" />
+  </wsdl:message>
+  <wsdl:message name="ITrains_GetTrain_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrainResponse" />
+  </wsdl:message>
   <wsdl:portType name="ITrains">
     <wsdl:operation name="Get">
       <wsdl:input wsaw:Action="http://tempuri.org/ITrains/Get" message="tns:ITrains_Get_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITrains/GetResponse" message="tns:ITrains_Get_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrain">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITrains/GetTrain" message="tns:ITrains_GetTrain_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITrains/GetTrainResponse" message="tns:ITrains_GetTrain_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITrains" type="tns:ITrains">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Get">
       <soap:operation soapAction="http://tempuri.org/ITrains/Get" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrain">
+      <soap:operation soapAction="http://tempuri.org/ITrains/GetTrain" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

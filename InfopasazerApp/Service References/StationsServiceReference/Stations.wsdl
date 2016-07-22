@@ -13,16 +13,35 @@
   <wsdl:message name="IStations_Get_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetResponse" />
   </wsdl:message>
+  <wsdl:message name="IStations_GetStationForName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStationForName" />
+  </wsdl:message>
+  <wsdl:message name="IStations_GetStationForName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStationForNameResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStations">
     <wsdl:operation name="Get">
       <wsdl:input wsaw:Action="http://tempuri.org/IStations/Get" message="tns:IStations_Get_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStations/GetResponse" message="tns:IStations_Get_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStationForName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStations/GetStationForName" message="tns:IStations_GetStationForName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStations/GetStationForNameResponse" message="tns:IStations_GetStationForName_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStations" type="tns:IStations">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Get">
       <soap:operation soapAction="http://tempuri.org/IStations/Get" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStationForName">
+      <soap:operation soapAction="http://tempuri.org/IStations/GetStationForName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

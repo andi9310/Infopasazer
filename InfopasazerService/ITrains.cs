@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
 using InfopasazerMiner;
 
 namespace InfopasazerService
@@ -13,5 +9,9 @@ namespace InfopasazerService
     {
         [OperationContract]
         TrainGroup Get(int stationId);
+
+        [OperationContract]
+        IEnumerable<TrainStation> GetTrain(int trainId);
+
     }
 }

@@ -12,6 +12,5 @@ namespace InfopasazerService
 
         [OperationContract]
         IEnumerable<TrainStation> GetTrain(int trainId);
-
     }
 }

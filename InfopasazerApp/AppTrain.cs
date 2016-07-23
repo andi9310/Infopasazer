@@ -18,11 +18,7 @@ namespace InfopasazerApp
             Date = t.Date;
             PlannedTime = t.PlannedTime;
             var delay = int.Parse(Delay.Split(' ')[0]);
-            if (delay < 1)
-            {
-                Color = "";
-            }
-            else if (delay < 5)
+            if (delay < 5)
             {
                 Color = "Green";
             }
@@ -32,11 +28,11 @@ namespace InfopasazerApp
             }
             else if (delay < 60)
             {
-                Color = "Orange";
+                Color = "Salmon";
             }
             else
             {
-                Color = "Red";
+                Color = "Coral";
             }
         }
     }

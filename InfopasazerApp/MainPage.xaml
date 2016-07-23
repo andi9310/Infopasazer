@@ -25,7 +25,5 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </StackPanel>
-        
-
     </Grid>
 </Page>

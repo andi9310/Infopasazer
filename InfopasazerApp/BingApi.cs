@@ -8,9 +8,17 @@ namespace InfopasazerApp
     class BingApi
     {
         private const string BaseUrl =
-            "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q={0} dworzec&count=1&offset=0&mkt=en-us&safeSearch=Moderate";
+            "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q={0}&count=1&offset=0&mkt=en-us&safeSearch=Moderate";
 
-        public static async Task<string> GetImageUrl(string query)
+        public static async Task<string> GetStationImage(string station)
+        {
+            return await GetImageUrl(station + " dworzec");
+        }
+        public static async Task<string> GetCompanyImage(string company)
+        {
+            return await GetImageUrl(company);
+        }
+        private static async Task<string> GetImageUrl(string query)
         {
             try
             {

@@ -6,7 +6,109 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.75"/>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Foreground="White" x:Name="dateTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="20"/>
+                <TextBlock Grid.Column="1" Foreground="LightSkyBlue" FontStyle="Italic" x:Name="companyTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="20" Tapped="Company_OnTapped"/>
+                <TextBlock Grid.Column="2" Foreground="White" x:Name="trainNameTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Brak pociągu" FontSize="40"/>
+                <TextBlock Grid.Column="3" Foreground="White" x:Name="relationTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="20"/>
+            </Grid>
+            <ListView Grid.Row="1" Name="stationsList" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionMode="None" Foreground="White">
+                <ListView.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.75"/>
+                </ListView.Background>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <ListViewItemPresenter ContentMargin="0" SelectionCheckMarkVisualEnabled="False" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="White"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.Background>
+                                <SolidColorBrush Color="{Binding Color}" Opacity="0.25"/>
+                            </Grid.Background>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock TextWrapping="Wrap"><Bold>Stacja</Bold></TextBlock>
+                            </Border>
+                            <Border Grid.Column="1" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock TextWrapping="Wrap" ><Bold>Planowany przyjazd</Bold></TextBlock>
+                            </Border>
+                            <Border Grid.Column="2" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock TextWrapping="Wrap"><Bold>Opóźnienie przyjazdu</Bold></TextBlock>
+                            </Border>
+                            <Border Grid.Column="3" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock TextWrapping="Wrap"><Bold>Planowany odjazd</Bold></TextBlock>
+                            </Border>
+                            <Border Grid.Column="4" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock TextWrapping="Wrap"><Bold>Opóźnienie odjazdu</Bold></TextBlock>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch" BorderBrush="White" BorderThickness="{Binding BorderThickness}" VerticalAlignment="Stretch">
+                            <Grid.Background>
+                                <SolidColorBrush Color="{Binding Color}" Opacity="0.25"/>
+                            </Grid.Background>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Tapped="StationName_OnTapped" Foreground="LightSkyBlue" FontStyle="Italic"></TextBlock>
+                            </Border>
+                            <Border Grid.Column="1" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock Text="{Binding PlanedArrival}" TextWrapping="Wrap"></TextBlock>
+                            </Border>
+                            <Border Grid.Column="2" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock Text="{Binding ArrivalDelay}" TextWrapping="Wrap"></TextBlock>
+                            </Border>
+                            <Border Grid.Column="3" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock Text="{Binding PlannedDeparture}" TextWrapping="Wrap"></TextBlock>
+                            </Border>
+                            <Border Grid.Column="4" BorderThickness="1 1 1 1" BorderBrush="White">
+                                <TextBlock Text="{Binding DepartureDelay}" TextWrapping="Wrap"></TextBlock>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

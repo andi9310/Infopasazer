@@ -9,13 +9,10 @@ namespace InfopasazerService
         public List<Station> Get(string pattern)
         {
             return InfopasazerMiner.InfopasazerMiner.GetStations(pattern).ToList();
-
         }
         public Station GetStationForName(string name)
         {
             return InfopasazerMiner.InfopasazerMiner.GetStationForName(name);
         }
-
-
     }
 }

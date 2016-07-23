@@ -30,18 +30,10 @@ namespace InfopasazerApp
             trainsList.ItemsSource = _showDepartures ? _trains.Departures.Select(x => new AppTrain(x)) : _trains.Arrivals.Select(x => new AppTrain(x));
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        private async Task SetBackground()
         {
-            if (e.Parameter == null) return;
-            _station = (Station)e.Parameter;
-            if (_station.Id == -1)
-            {
-                return;
-            }
-            stationNameTextBlock.Text = _station.Name;
-            var url = await BingApi.GetImageUrl(_station.Name);
+            var url = await BingApi.GetStationImage(_station.Name);
 
-            var refreshTask = RefreshTrains();
             if (url != null)
             {
                 Background = new ImageBrush
@@ -50,7 +42,21 @@ namespace InfopasazerApp
                     ImageSource = new BitmapImage {UriSource = new Uri(url)}
                 };
             }
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter == null) return;
+            _station = (Station)e.Parameter;
+            if (_station.Id == -1)
+            {
+                return;
+            }
+            var refreshTask = RefreshTrains();
+            var backgroundTask = SetBackground();
+            stationNameTextBlock.Text = _station.Name;
             await refreshTask;
+            await backgroundTask;
         }
 
         private async void Source_OnTapped(object sender, TappedRoutedEventArgs e)

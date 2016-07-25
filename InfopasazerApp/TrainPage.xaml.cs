@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -20,7 +21,16 @@ namespace InfopasazerApp
         private IEnumerable<AppTrainStation> _trainDetails;
         public TrainPage()
         {
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 1, 0);
+            dispatcherTimer.Start();
+
             InitializeComponent();
+        }
+        private async void dispatcherTimer_Tick(object sender, object e)
+        {
+            await RefreshTrain();
         }
 
         private async Task RefreshTrain()
@@ -107,6 +117,11 @@ namespace InfopasazerApp
         private async void Company_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri(MyTrain.CompanyUrl));
+        }
+
+        private void mainPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

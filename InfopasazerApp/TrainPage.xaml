@@ -21,11 +21,15 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Foreground="White" x:Name="dateTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="20"/>
                 <TextBlock Grid.Column="1" Foreground="LightSkyBlue" FontStyle="Italic" x:Name="companyTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="20" Tapped="Company_OnTapped"/>
                 <TextBlock Grid.Column="2" Foreground="White" x:Name="trainNameTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Brak pociągu" FontSize="40"/>
                 <TextBlock Grid.Column="3" Foreground="White" x:Name="relationTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="20"/>
+                <Button Grid.Column="4" x:Name="mainPageButton" Content="Strona Główna" Foreground="White" BorderBrush="White" Width="130" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="mainPageButton_Click"/>
+
             </Grid>
             <ListView Grid.Row="1" Name="stationsList" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionMode="None" Foreground="White">
                 <ListView.Background>

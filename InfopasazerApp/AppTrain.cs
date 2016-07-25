@@ -2,7 +2,7 @@
 
 namespace InfopasazerApp
 {
-    class AppTrain: Train
+    public class AppTrain: Train
     {
         public string Color { get; set; }
 
@@ -35,5 +35,7 @@ namespace InfopasazerApp
                 Color = "Coral";
             }
         }
+
+
     }
 }

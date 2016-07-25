@@ -18,9 +18,20 @@ namespace InfopasazerApp
         private Station _station;
         private TrainGroup _trains;
         private bool _showDepartures;
+
         public StationPage()
         {
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 1, 0);
+            dispatcherTimer.Start();
+
             InitializeComponent();
+        }
+
+        private async void dispatcherTimer_Tick(object sender, object e)
+        {
+            await RefreshTrains();
         }
 
         private async Task RefreshTrains()
@@ -108,6 +119,11 @@ namespace InfopasazerApp
                 return;
             }
             await Launcher.LaunchUriAsync(new Uri(train.CompanyUrl));
+        }
+
+        private void mainPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

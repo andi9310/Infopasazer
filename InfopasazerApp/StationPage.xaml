@@ -20,9 +20,12 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="1" Foreground="White" x:Name="stationNameTextBlock" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="Brak stacji" FontSize="40"/>
-                    <Button Grid.Column="2" x:Name="Mode" Content="Przyjazdy" Click="Mode_Click" Foreground="White" BorderBrush="White"/>
+                <Button Grid.Column="2" x:Name="Mode" Content="Przyjazdy" Click="Mode_Click" Foreground="White" BorderBrush="White"/>
+                <Button Grid.Column="3" x:Name="mainPageButton" Content="Strona Główna" Foreground="White" BorderBrush="White" Width="130" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="mainPageButton_Click"/>
+
             </Grid>
             <ListView Grid.Row="1" Name="trainsList" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionMode="None" Foreground="White">
                 <ListView.Background>
